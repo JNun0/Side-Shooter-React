@@ -1,10 +1,62 @@
 import React, { Component } from 'react';
+import './particles.js'
 import './style.css';
 
 class GameWrapper extends Component {
   componentDidMount() {
     this.startGame();
+    particlesJS("space", {
+      "particles": {
+        "number": {
+          "value": 50,
+          "density": {
+            "enable": true,
+            "value_area": 500
+          }
+        },
+        "color": {
+          "value": "#fff"
+        },
+        "opacity": {
+          "value": 1,
+          "anim": {
+            "enable": true,
+            "speed": 8,
+            "opacity_min": 0.4,
+            "sync": false
+          }
+        },
+        "shape": {
+          "type": "circle"
+        },
+        "size": {
+          "value": 5,
+          "random": true
+        },
+        "line_linked": {
+          "enable": false
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "left",
+          "straight": true
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": false
+          },
+          "onclick": {
+            "enable": false
+          }
+        }
+      }
+    });
   }
+
 
   startGame = () => {
     // canvas setup
@@ -13,7 +65,8 @@ class GameWrapper extends Component {
     canvas.width = 1000;
     canvas.height = 500;
 
-    async function Game() {
+
+    function Game() {
       class InputHandler {
         constructor(game) {
           this.game = game;
@@ -57,7 +110,7 @@ class GameWrapper extends Component {
   
         //desenho do projetil
         draw(context) {
-          context.fillStyle = "Black";
+          context.fillStyle = "Yellow";
           context.fillRect(this.x, this.y, this.width, this.height);
         }
       }
@@ -315,6 +368,22 @@ class GameWrapper extends Component {
       animate(0);
     }
     Game();
+
+    var promise = new Promise(function (resolve, reject) {
+      if (Game() == false) {
+        resolve();
+      } else {
+        reject();
+      }
+    });
+  
+    promise
+      .then(function () {
+        console.log("Error");
+      })
+      .catch(function () {
+        console.log("Success, the game run");
+      });
   }
 
   render() {
